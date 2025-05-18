@@ -30,8 +30,8 @@ Route::get('/contact', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+// route ini harus ditulis sebelum route model binding
 Route::get('/dashboard', [PostDashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::get('dashboard/create', [PostDashboardController::class, 'create'])->middleware(['auth', 'verified']);
 
 // ini adalah route model binding

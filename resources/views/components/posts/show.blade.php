@@ -36,7 +36,9 @@
               <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $post['title'] }}</h1>
           </header>
       <p class="lead">{{$post['body']}}</p>
-      <a href="/dashboard" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 no-underline hover:underline">&laquo; Back to all blog</a>
+      <a href="/dashboard" type="submit" class="text-white no-underline inline-flex items-center bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Back
+      </a>
+      {{-- <a href="/dashboard" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 no-underline hover:underline">&laquo; Back to all blog</a> --}}
       </article>
   </div>
 </main>
