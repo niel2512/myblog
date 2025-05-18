@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PostDashboardController extends Controller
 {
@@ -41,12 +42,31 @@ class PostDashboardController extends Controller
      */
     public function store(Request $request)
     {
-        // membuat validation
-        $request->validate([
-            'title' => 'required',
+        // membuat validation dengan pesan eror default laravel
+        // $request->validate([
+        //     'title' => 'required|unique:posts|min:10|max:30', 
+        //     'category_id' => 'required',
+        //     'body' => 'required'
+        // ]);
+
+        // Membuat custom pesan eror 
+        Validator::make($request->all(), [
+            'title' => 'required|unique:posts|min:10|max:30',
             'category_id' => 'required',
             'body' => 'required'
-        ]);
+        ], [
+            // ini general semua eror bakal tampil pesan yg sama
+            // 'required' => 'Field :attribute harus di isi woy!'
+
+            // ini custom eror untuk masing masing nya
+            'title.required' => 'Field :attribute harus di isi woy!',
+            'category_id.required' => 'Pilih salah satu category nya woy!',
+            'body.required' => 'Deskripsi gaboleh kosong woy!',
+        ], [
+            'title' => 'Judul',
+            'category_id' => 'Kategori',
+            'body'=> 'Deskripsi'
+        ])->validate();
 
         Post::create([
             'title' => $request->title,
@@ -55,8 +75,9 @@ class PostDashboardController extends Controller
             'slug' => Str::slug($request->title), //ini menggunakan helper untuk otomatis mengambil slug berdasarkan title yang di input
             'body' => $request->body
         ]);
-
-        return redirect('/dashboard');
+        
+        //menambah flashmessage yaitu pesan yg muncul sekali karna hanya disimpan di session
+        return redirect('/dashboard')->with(['success' => 'Blog berhasil disimpan!']); 
     }
 
     /**
