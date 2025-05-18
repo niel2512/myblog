@@ -41,6 +41,13 @@ class PostDashboardController extends Controller
      */
     public function store(Request $request)
     {
+        // membuat validation
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'body' => 'required'
+        ]);
+
         Post::create([
             'title' => $request->title,
             'author_id' => Auth::user()->id, //ini untuk mengambil authornya berdasarkan user yang login
