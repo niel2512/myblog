@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 //menggunakan model binding 
 class Post extends Model 
 {
- // protected $guarded = ['id']; //ini untuk menjaga agar id tidak dapat diisi
+ protected $guarded = ['id']; //ini untuk menjaga agar id tidak dapat diisi
  // protected $table = 'Post'; //ini digunakan kalau table kita tidak menggunakan default table laravel 'Posts' ada s nya
  use HasFactory; //agar bisa memanggil faker di tinker
- protected $fillable = ['title','author','slug','body']; //ini untuk memperbolehkan table tersebut diisi 
+
+ //ini untuk memperbolehkan table tersebut diisi 
+//  protected $fillable = ['title','author_id','category_id','slug','body']; 
 
  // Melakukan eloquent Eager Loading by Default
  protected $with = ['author','category']; //pakai eager query apabila query nya kebanyakan

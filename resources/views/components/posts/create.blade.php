@@ -5,7 +5,8 @@
                 <h3 class="text-2xl font-semibold text-gray-900">Add Blog</h3>
             </div>
             <!-- Modal body -->
-            <form action="#">
+            <form action="/dashboard" method="POST">
+                @csrf
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
