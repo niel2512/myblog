@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -26,13 +27,26 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // $request->user()->fill($request->validated());
+        $validated = $request->validated();
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->save();
+        if ($request->hasFile('avatar')) {
+            // logika untuk menghapus file di storage apabila user update foto baru
+            if(!empty($request->user()->avatar)) {
+                Storage::disk('public')->delete($request->user()->avatar);
+            }
+
+            //supaya file yg di upload disimpan di storage->app->public 
+            $path = $request->file('avatar')->store('img', 'public'); 
+            //tapi harus php artisan storage:link supaya terhubung di folder public yang di app->public->img
+            $validated['avatar'] = $path;
+        }
+        // $request->user()->save();
+        $request->user()->update($validated);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

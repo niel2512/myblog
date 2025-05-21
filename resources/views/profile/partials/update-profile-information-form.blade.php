@@ -13,7 +13,8 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    {{-- tambahkan enctype untuk upload file --}}
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6", enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -24,7 +25,7 @@
         </div>
 
         <div>
-            <x-input-label for="username" :value="__('Name')" />
+            <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
@@ -52,6 +53,20 @@
                 </div>
             @endif
         </div>
+        {{-- Upload profile picture --}}
+        <div>
+            <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-white" for="avatar">Upload file</label>
+            <input class="@error('avatar') border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 @enderror block w-full text-sm text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" name="avatar" aria-describedby="avatar" id="avatar" type="file" accept="image/png, image/jpg, image/jpeg"> {{-- nambahin validasi dari html yaitu accept--}}
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="avatar">.jpg, .png, .jpeg</div>
+            @error('avatar') 
+                <p class="mt-2 text-xs text-red-600">
+                    {{$message}}
+                </p> 
+            @enderror
+        </div>
+        <div>
+            <img class="w-20 h-20 rounded-full" src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('img/user-avatar.png') }}" alt="{{ $user->name }}" id="avatar-preview">
+        </div>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
@@ -68,3 +83,20 @@
         </div>
     </form>
 </section>
+
+{{-- Sintaks js untuk preview gambar sebelum di save --}}
+<script>
+    const input = document.getElementById('avatar');
+    const previewPhoto = () => {
+    const file = input.files;
+    if (file) {
+      const fileReader = new FileReader();
+      const preview = document.getElementById('avatar-preview');
+      fileReader.onload = function(event) {
+        preview.setAttribute('src', event.target.result);
+      }
+      fileReader.readAsDataURL(file[0]);
+    }
+  }
+  input.addEventListener("change", previewPhoto);   
+</script>
