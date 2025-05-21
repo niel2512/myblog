@@ -86,7 +86,7 @@
                      @foreach ($posts as $post)
                         <tr class="border">
                             <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3">{{ $post->title }}</td>
+                            <td class="px-4 py-3"><a href="/dashboard/{{ $post->slug }}" type="button">{{ $post->title }}</a></td>
                             {{-- <td class="px-4 py-3">{{ $post->author->name }}</td> --}}
                             <td class="px-4 py-3">{{ $post->category->name }}</td>
                             <td class="px-4 py-3">{{ $post->created_at->diffForHumans() }}</td>
