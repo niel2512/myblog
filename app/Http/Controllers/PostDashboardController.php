@@ -77,7 +77,7 @@ class PostDashboardController extends Controller
         ]);
         
         //menambah flashmessage yaitu pesan yg muncul sekali karna hanya disimpan di session
-        return redirect('/dashboard')->with(['success' => 'Blog berhasil disimpan!']); 
+        return redirect('/dashboard')->with(['success' => 'Success Saved!']); 
     }
 
     /**
@@ -109,8 +109,10 @@ class PostDashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
-        //
+        // return $post;
+        $post->delete();
+        return redirect('/dashboard')->with(['danger' => 'Success Removed!']); 
     }
 }
