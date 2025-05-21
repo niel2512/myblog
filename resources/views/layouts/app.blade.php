@@ -4,12 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="icon" href="{{ asset('img/favicon.png') }}">
+        <link rel="icon" href="{{ asset('img/favicon.png') }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+         {{-- Link Tailwind css --}}
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        {{-- Link Alpine.js --}}
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -32,5 +36,7 @@
                 {{ $slot }}
             </main>
         </div>
+        {{-- Menambah script js flowbite --}}
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     </body>
 </html>
