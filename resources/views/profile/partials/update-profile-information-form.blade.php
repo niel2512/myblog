@@ -1,6 +1,10 @@
 {{-- Memasukkan style css ke layout app hanya untuk update menggunakan push --}}
 @push('style')
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+    />
 @endpush
 <section>
     <header>
@@ -106,12 +110,35 @@
   input.addEventListener("change", previewPhoto);   
     </script>
     {{-- Script filepond --}}
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>  
     <script>
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('#avatar'); //ambil input file diatas dengan nama avatar
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+        FilePond.registerPlugin(FilePondPluginFileValidateSize);
+        FilePond.registerPlugin(FilePondPluginImageTransform);
+        FilePond.registerPlugin(FilePondPluginImageResize);
 
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement);
+        // Create a FilePond instance
+        const inputElement = document.querySelector('#avatar'); //ambil input file diatas dengan nama avatar
+        const pond = FilePond.create(inputElement, {
+            acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
+            maxFileSize: '5MB',
+            imageResizeTargetWidth: '600', //agar ukuran jadi 600x600
+            imageResizeMode: 'contain', //agar ngepas gambarnya
+            imageResizeUpscale: false, //memaksa ukuran gambar yg diupload diubah jd 600x600
+            server: {
+                url: '/upload',
+                //nambahin csrf token didalam javascript agar bisa upload
+                headers:{
+                    'X-CSRF-TOKEN' : '{{ csrf_token() }}', 
+                }
+            }
+        });
     </script>
 @endpush
