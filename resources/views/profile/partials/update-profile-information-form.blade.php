@@ -1,3 +1,7 @@
+{{-- Memasukkan style css ke layout app hanya untuk update menggunakan push --}}
+@push('style')
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+@endpush
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
@@ -83,9 +87,10 @@
         </div>
     </form>
 </section>
-
-{{-- Sintaks js untuk preview gambar sebelum di save --}}
-<script>
+{{-- Memasukkan script js ke layout app hanya untuk update menggunakan push --}}
+@push('script')
+    {{-- Sintaks js untuk preview gambar sebelum di save --}}
+    <script>
     const input = document.getElementById('avatar');
     const previewPhoto = () => {
     const file = input.files;
@@ -99,4 +104,14 @@
     }
   }
   input.addEventListener("change", previewPhoto);   
-</script>
+    </script>
+    {{-- Script filepond --}}
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>  
+    <script>
+    // Get a reference to the file input element
+    const inputElement = document.querySelector('#avatar'); //ambil input file diatas dengan nama avatar
+
+    // Create a FilePond instance
+    const pond = FilePond.create(inputElement);
+    </script>
+@endpush

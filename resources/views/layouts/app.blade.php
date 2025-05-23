@@ -12,9 +12,11 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
          {{-- Link Tailwind css --}}
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        {{-- nambahin CSS Filepond Pakai Stacks Blade--}}
+        @stack('style')
         {{-- Link Alpine.js --}}
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -38,5 +40,7 @@
         </div>
         {{-- Menambah script js flowbite --}}
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+        {{-- nambahin Script js Filepond Pakai Stacks Blade--}}
+        @stack('script')
     </body>
 </html>
