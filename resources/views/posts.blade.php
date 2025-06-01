@@ -13,7 +13,7 @@
             <span class="text-sm">{{ $post->created_at->diffForHumans() }}</span>
           </div>
           <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="/posts/{{ $post['slug'] }}">{{ $post->title }}</a></h2>
-          <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit($post->body,100) }}</p>
+          <div class="mb-5 font-light text-gray-500 dark:text-gray-400">{!! Str::limit($post->body,100) !!}</div>
           <div class="flex justify-between items-center">
             <a href="/posts?author={{ $post->author->username }}">
               <div class="flex items-center space-x-4">

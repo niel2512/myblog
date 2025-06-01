@@ -20,7 +20,7 @@
               </address>
               <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{ $post['title'] }}</h1>
           </header>
-      <p class="lead">{{$post['body']}}</p>
+      <div class="lead">{!!$post['body']!!}</div>
       <a href="/posts" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 no-underline hover:underline">&laquo; Back to all blog</a>
       </article>
   </div>
