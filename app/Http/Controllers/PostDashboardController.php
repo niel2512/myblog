@@ -53,15 +53,17 @@ class PostDashboardController extends Controller
         Validator::make($request->all(), [
             'title' => 'required|unique:posts|min:10|max:30',
             'category_id' => 'required',
-            'body' => 'required'
+            'body' => 'required|min:50'
         ], [
             // ini general semua eror bakal tampil pesan yg sama
             // 'required' => 'Field :attribute harus di isi woy!'
 
             // ini custom eror untuk masing masing nya
             'title.required' => 'Field :attribute harus di isi woy!',
+            'title.min' => ':attribute minimal harus :min karakter woy!',
             'category_id.required' => 'Pilih salah satu category nya woy!',
             'body.required' => 'Deskripsi gaboleh kosong woy!',
+            'body.min' => ':attribute minimal harus :min karakter woy!',
         ], [
             'title' => 'Judul',
             'category_id' => 'Kategori',
